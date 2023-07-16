@@ -1,10 +1,9 @@
+import React from "react";
 import { useController } from "react-hook-form";
 
-// eslint-disable-next-line react/prop-types
 const InputHook = ({ control, ...props }) => {
   const { field } = useController({
     control,
-    // eslint-disable-next-line react/prop-types
     name: props.name,
     defaultValue: "",
   });

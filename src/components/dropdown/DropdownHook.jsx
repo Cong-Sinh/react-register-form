@@ -1,33 +1,34 @@
-/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from "react";
 import { useWatch } from "react-hook-form";
-import useClickOutSide from "../../hook/useClickOutSide";
-import { useState } from "react";
+import useClickOutSide from "../../hooks/useClickOutSide";
 
-// eslint-disable-next-line react/prop-types
 const DropdownHook = ({
   control,
   setValue,
   name,
   data,
-  dropdownLabel = "click vao day de chon dao`",
+  dropdownLabel = "Select your job",
 }) => {
   const { show, setShow, nodeRef } = useClickOutSide();
-  useWatch({
+  const dropdownValue = useWatch({
     control,
     name: "job",
-    defaultValue: "",
+    defaultValue: "", // default value before the render
   });
+  console.log("dropdownValue", dropdownValue);
   const handleClickDropdownItem = (e) => {
     setValue(name, e.target.dataset.value);
     setShow(false);
-    setlabel(e.target.textContent);
+    setLabel(e.target.textContent);
   };
-  const [label, setlabel] = useState(dropdownLabel);
-
+  const [label, setLabel] = useState(dropdownLabel);
+  useEffect(() => {
+    if (dropdownValue === "") setLabel(dropdownLabel);
+  }, [dropdownValue]);
   return (
     <div className="relative" ref={nodeRef}>
       <div
-        className="p-5 rounded-lg border border-gray-100 bg-white flex items-center justify-between cursor-pointer"
+        className="flex items-center justify-between p-5 bg-white border rounded-lg cursor-pointer border-gray100"
         onClick={() => setShow(!show)}
       >
         <span>{label}</span>
@@ -47,27 +48,6 @@ const DropdownHook = ({
             {item.text}
           </div>
         ))}
-        {/* <div
-          className="p-5 cursor-pointer hover:bg-gray-100"
-          onClick={handleClickDropdownItem}
-          data-value="Teacher"
-        >
-          Teacher
-        </div>
-        <div
-          className="p-5 cursor-pointer hover:bg-gray-100"
-          onClick={handleClickDropdownItem}
-          data-value="Developer"
-        >
-          Developer
-        </div>
-        <div
-          className="p-5 cursor-pointer hover:bg-gray-100"
-          onClick={handleClickDropdownItem}
-          data-value="Doctor"
-        >
-          Doctor
-        </div> */}
       </div>
     </div>
   );

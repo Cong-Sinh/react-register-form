@@ -1,16 +1,22 @@
+import React from "react";
 import { useController } from "react-hook-form";
 
-// eslint-disable-next-line react/prop-types
 const RadioHook = ({ control, ...props }) => {
   const { field } = useController({
     control,
-    // eslint-disable-next-line react/prop-types
     name: props.name,
+    defaultValue: props.value,
   });
   return (
-    <label className=" bg-white rounded-full cursor-pointer custom-radio">
-      <input type="radio" className="hidden" {...field} {...props} />
-      <div className="bg-white w-full h-full rounded-full "></div>
+    <label className="cursor-pointer custom-radio">
+      <input
+        {...field}
+        type="radio"
+        value={props.value}
+        className="hidden"
+        checked={props.checked}
+      />
+      <div className="w-full h-full bg-white rounded-full"></div>
     </label>
   );
 };

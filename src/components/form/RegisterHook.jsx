@@ -1,4 +1,5 @@
-import { useForm } from "react-hook-form";
+import React from "react";
+import { useForm, useWatch } from "react-hook-form";
 import CheckboxHook from "../checkbox/CheckboxHook";
 import DropdownHook from "../dropdown/DropdownHook";
 import InputHook from "../input/InputHook";
@@ -61,9 +62,10 @@ const dropdownData = [
 const RegisterHook = () => {
   const {
     handleSubmit,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isValid, isSubmitting, isSubmitSuccessful },
     control,
     setValue,
+    getValues,
     reset,
     watch,
   } = useForm({
@@ -76,7 +78,7 @@ const RegisterHook = () => {
   console.log(errors);
   // console.log("RegisterHook ~ isSubmitting", isSubmitting);
   // console.log("RegisterHook ~ errors", errors);
-  const onSubmitHandler = () => {
+  const onSubmitHandler = (values) => {
     if (!isValid) return;
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -89,7 +91,7 @@ const RegisterHook = () => {
           job: "",
           term: false,
         });
-      }, 2000);
+      }, 5000);
     });
   };
   const watchGender = watch("gender");

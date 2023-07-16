@@ -1,26 +1,24 @@
-/* eslint-disable react/prop-types */
-
+import React from "react";
 import { useController } from "react-hook-form";
 
-// eslint-disable-next-line react/prop-types
 const CheckboxHook = ({ control, text, ...props }) => {
   const { field } = useController({
     control,
-    // eslint-disable-next-line react/prop-types
     name: props.name,
+    defaultValue: false,
   });
-
   return (
-    <label className=" rounded-full cursor-pointer custom-checkbox">
+    <label className="cursor-pointer custom-checkbox">
       <input
         type="checkbox"
-        id={props.name}
+        value={props.value}
         className="hidden"
+        id={props.name}
+        checked={field.value}
         {...field}
-        {...props}
       />
-      <div className="flex items-center gap-x-3 ">
-        <div className=" flex items-center justify-center bg-white w-full h-full rounded-md custom-checkbox-square  ">
+      <div className="flex items-center gap-x-3">
+        <div className="flex items-center justify-center w-full h-full transition-all bg-white rounded-md custom-checkbox-square">
           <svg
             width="16"
             height="17"
